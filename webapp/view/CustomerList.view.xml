@@ -1,0 +1,38 @@
+<mvc:View controllerName="dttgroup.SAPUI5.controller.CustomerList" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<List	id="customerList" headerText="{i18n>CustomerListTitle}" class="sapUIResponsiveMargin" width="auto" 
+			items="{
+					path: 'custom>/Customers',
+					sorter : {
+						path : 'Country',
+						group : true
+					}	
+					}">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>CustomerListTitle}"/>
+				<ToolbarSpacer/>
+				<SearchField width="50%" search=".onFilterCustomar"/>
+			</Toolbar>
+		</headerToolbar>
+		<items>
+			<ObjectListItem title="{custom>CompanyName} / {custom>ContactName}"
+							number="{
+							parts: [{path: 'custom>SalesAmount'}, {path: 'view>/Currency'}],
+									type: 'sap.ui.model.type.Currency',
+									formatOptions: {
+										showMeasure: false
+										}
+							}"			
+							numberUnit="{view>/Currency}"
+							numberState="{= ${custom>SalesAmount} > 500 ? 'Success' : 'Error'}">
+				
+				<firstStatus>
+					<ObjectStatus text="{
+						path: 'custom>ContactTitle',
+						formatter: '.formatter.statusText'
+					}"/>
+				</firstStatus>
+			</ObjectListItem>
+		</items>
+	</List>
+</mvc:View>
